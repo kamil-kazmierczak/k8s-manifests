@@ -1,0 +1,19 @@
+# Pliki sekretów (nie commitujemy haseł)
+db-tools/pgadmin/secret.yaml
+
+# Pliki tymczasowe edytorów/OS
+*.swp
+*.swo
+*.bak
+*.tmp
+*~
+.DS_Store
+Thumbs.db
+
+# Logi
+*.log
+
+# Pliki generowane przez narzędzia
+.idea/
+.vscode/
+
