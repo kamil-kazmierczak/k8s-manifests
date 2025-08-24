@@ -8,39 +8,39 @@
 
  1. Utwórz sekret z danymi logowania
 ```
-cp db-tools/pgadmin/secret.yaml.example db-tools/pgadmin/secret.yaml
-# edytuj: PGADMIN_DEFAULT_EMAIL, PGADMIN_DEFAULT_PASSWORD
+cp monitoring/grafana/secret.yaml.example monitoring/grafana/secret.yaml
+# edytuj: admin-user, admin-password
 ```
 
  2. Zastosuj manifesty
 ```
-kubectl apply -f db-tools/pgadmin/
+kubectl apply -f monitoring/grafana/
 ```
 
  3. Sprawdź status zasobów
 ```
-kubectl -n db-tools get pods
-kubectl -n db-tools get svc
+kubectl -n monitoring get pods
+kubectl -n monitoring get svc
 ```
 
 ## Dostęp
 
  - Usługa pgadmin4 działa jako NodePort
 
- - Domyślny port NodePort: 30432
+ - Domyślny port NodePort: 30300
 
  - Adres URL:
 ```
-http://<IP_węzła>:30432
+http://<IP_węzła>:30300
 ```
 
 ## Dane logowania
 
-Ustaw w `db-tools/pgadmin/secret.yaml`:
+Ustaw w `monitoring/grafana/secret.yaml`:
 
- - `PGADMIN_DEFAULT_EMAIL`
+ - `admin-user`
 
- - `PGADMIN_DEFAULT_PASSWORD`
+ - `admin-password`
 
 ## Bezpieczeństwo
 
@@ -50,18 +50,18 @@ Ustaw w `db-tools/pgadmin/secret.yaml`:
 
 Przykładowy wpis do .gitignore:
 ```
-db-tools/pgadmin/secret.yaml
+monitoring/grafana/secret.yaml
 ```
 
 ## Notatki
 
  - `storageClassName`: `local-path` (domyślny w K3s) — zmień, jeśli używasz innego storage class
 
- - Obraz kontenera: `dpage/pgadmin4:8.11` — wersję aktualizujesz w `deployment.yaml`
+ - Obraz kontenera: `grafana/grafana-oss:11.2.0` — wersję aktualizujesz w `deployment.yaml`
 
 ## Usunięcie (cleanup)
 
 Aby usunąć wdrożenie pgAdmin4:
 ```
-kubectl delete -f db-tools/pgadmin/
+kubectl delete -f monitoring/grafana/
 ```
