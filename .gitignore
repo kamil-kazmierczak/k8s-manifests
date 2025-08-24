@@ -1,5 +1,5 @@
 # Pliki sekretów (nie commitujemy haseł)
-db-tools/pgadmin/secret.yaml
+*/secret.yaml
 
 # Pliki tymczasowe edytorów/OS
 *.swp
