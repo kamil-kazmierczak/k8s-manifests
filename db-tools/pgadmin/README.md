@@ -1,74 +1,67 @@
-Struktura
+## Wymagania
 
-k8s-manifests/
-├─ README.md
-└─ db-tools/
-└─ pgadmin/
-├─ namespace.yaml
-├─ secret.yaml.example
-├─ pvc.yaml
-├─ deployment.yaml
-└─ service.yaml
+ - Działający klaster Kubernetes (np. K3s/Kind/Minikube)
 
-Wymagania
+ - Skonfigurowany kubectl z dostępem do klastra
 
-Działający klaster Kubernetes (np. K3s/Kind/Minikube)
+## Deploy pgAdmin4
 
-Skonfigurowany kubectl z dostępem do klastra
-
-Deploy pgAdmin4
-
-Utwórz sekret z danymi logowania
-
+ 1. Utwórz sekret z danymi logowania
+```
 cp db-tools/pgadmin/secret.yaml.example db-tools/pgadmin/secret.yaml
+# edytuj: PGADMIN_DEFAULT_EMAIL, PGADMIN_DEFAULT_PASSWORD
+```
 
-edytuj: PGADMIN_DEFAULT_EMAIL, PGADMIN_DEFAULT_PASSWORD
-
-Zastosuj manifesty
-
+ 2. Zastosuj manifesty
+```
 kubectl apply -f db-tools/pgadmin/
+```
 
-Sprawdź status zasobów
-
+ 3. Sprawdź status zasobów
+```
 kubectl -n db-tools get pods
 kubectl -n db-tools get svc
+```
 
-Dostęp
+## Dostęp
 
-Usługa pgadmin4 działa jako NodePort
+ - Usługa pgadmin4 działa jako NodePort
 
-Domyślny port NodePort: 30432
+ - Domyślny port NodePort: 30432
 
-Adres URL:
-
+ - Adres URL:
+```
 http://<IP_węzła>:30432
+```
 
-Dane logowania
+## Dane logowania
 
-Ustaw w db-tools/pgadmin/secret.yaml:
+Ustaw w `db-tools/pgadmin/secret.yaml`:
 
-PGADMIN_DEFAULT_EMAIL
+ - `PGADMIN_DEFAULT_EMAIL`
 
-PGADMIN_DEFAULT_PASSWORD
+ - `PGADMIN_DEFAULT_PASSWORD`
 
-Bezpieczeństwo
+## Bezpieczeństwo
 
-Nie commituj pliku secret.yaml do repozytorium
+ - Nie commituj pliku secret.yaml do repozytorium
 
-Commituj wyłącznie secret.yaml.example
+ - Commituj wyłącznie secret.yaml.example
 
 Przykładowy wpis do .gitignore:
-
+```
 db-tools/pgadmin/secret.yaml
+```
 
-Notatki
+## Notatki
 
-storageClassName: local-path (domyślny w K3s) — zmień, jeśli używasz innego storage class
+ - `storageClassName`: `local-path` (domyślny w K3s) — zmień, jeśli używasz innego storage class
 
-Obraz kontenera: dpage/pgadmin4:8.11 — wersję aktualizujesz w deployment.yaml
+ - Obraz kontenera: `dpage/pgadmin4:8.11` — wersję aktualizujesz w `deployment.yaml`
 
-Usunięcie (cleanup)
+## Usunięcie (cleanup)
 
 Aby usunąć wdrożenie pgAdmin4:
-
+```
 kubectl delete -f db-tools/pgadmin/
+```
