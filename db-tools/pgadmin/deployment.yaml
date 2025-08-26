@@ -4,7 +4,7 @@ metadata:
   name: pgadmin4
   namespace: db-tools
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: pgadmin4
