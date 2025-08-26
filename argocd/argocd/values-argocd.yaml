@@ -1,0 +1,19 @@
+crds:
+  install: true
+
+applicationset:
+  enabled: true
+
+server:
+  service:
+    type: NodePort
+    # Wystaw HTTPS na :30080 (pozostaje cert self-signed)
+    nodePortHttps: 30080
+  # Jeśli wolisz HTTP zamiast HTTPS:
+  # configs:
+  #   params:
+  #     server.insecure: "true"
+  # service:
+  #   type: NodePort
+  #   nodePortHttp: 30080
+
