@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - { name: pgadmin, path: db-tools/pgadmin, namespace: pgadmin }
+          - { name: grafana, path: monitoring/grafana, namespace: grafana }
+  template:
+    metadata: { name: "{{name}}" }
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/kamil-kazmierczak/k8s-manifests
+        targetRevision: develop
+        path: "{{path}}"
+        # dla plain YAML odkomentuj:
+        # directory: { recurse: true }
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated: { prune: true, selfHeal: true }
+        syncOptions: [CreateNamespace=true]
+
