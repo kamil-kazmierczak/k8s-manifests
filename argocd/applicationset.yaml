@@ -9,6 +9,7 @@ spec:
         elements:
           - { name: pgadmin, path: db-tools/pgadmin, namespace: pgadmin }
           - { name: grafana, path: monitoring/grafana, namespace: grafana }
+          - { name: argocd, path: argocd/argocd, namespace: argocd }
   template:
     metadata: { name: "{{name}}" }
     spec:
