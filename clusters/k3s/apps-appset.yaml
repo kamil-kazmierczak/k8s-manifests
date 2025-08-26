@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/kamil-kazmierczak/k8s-manifests
+        revision: develop
+        directories:
+          - path: "apps/*"
+  template:
+    metadata:
+      name: "{{path.basename}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/kamil-kazmierczak/k8s-manifests
+        targetRevision: develop
+        path: "{{path}}"
+        directory:
+          recurse: true         # bo to plain YAML (bez kustomize)
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{path.basename}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+
