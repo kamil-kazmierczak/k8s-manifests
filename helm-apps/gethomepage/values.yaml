@@ -1,0 +1,36 @@
+image:
+  repository: ghcr.io/gethomepage/homepage
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: true
+  className: traefik
+  hosts:
+    - host: home.homelab.local   # <— podmień
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []                      # albo włącz, jeśli masz cert-manager
+
+# Konfiguracja aplikacji z ConfigMap:
+extraVolumes:
+  - name: homepage-config
+    configMap:
+      name: homepage-config
+extraVolumeMounts:
+  - name: homepage-config
+    mountPath: /app/config
+    readOnly: true
+
+resources:
+  requests: { cpu: 50m, memory: 128Mi }
+  limits:   { memory: 256Mi }
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000

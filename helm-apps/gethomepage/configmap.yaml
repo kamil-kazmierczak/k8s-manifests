@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-config
+data:
+  settings.yaml: |
+    title: "Home"
+    theme: dark
+  services.yaml: |
+    - Apps:
+        - Homepage:
+            icon: homepage
+            href: https://home.example.com
+  bookmarks.yaml: |
+    - Dev:
+        - ArgoCD: https://argocd.example.com
+  widgets.yaml: |
+    - resources:
+        cpu: true
+        mem: true
+        disk: true

@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: helm-apps
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/kamil-kazmierczak/k8s-manifests
+        revision: develop
+        directories:
+          - path: "helm-apps/*"
+  template:
+    metadata:
+      name: "helm-{{path.basename}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/kamil-kazmierczak/k8s-manifests
+        targetRevision: develop
+        path: "{{path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{path.basename}}"
+      syncPolicy:
+        automated: { prune: true, selfHeal: true }
+        syncOptions: [ "CreateNamespace=true" ]
