@@ -33,14 +33,15 @@ spec:
 
         config:
           services:
-            - Grafana:
-                icon: si:grafana
-                href: http://grafana.homelab.lan
-                description: Monitoring dashboards
-            - pgAdmin:
-                icon: si:postgresql
-                href: http://pgadmin.homelab.lan
-                description: Database management
+            - Apps:
+                - Grafana:
+                    icon: si:grafana
+                    href: http://grafana.homelab.lan
+                    description: Monitoring dashboards
+                - pgAdmin:
+                    icon: si:postgresql
+                    href: http://pgadmin.homelab.lan
+                    description: Database management
 
   destination:
     server: https://kubernetes.default.svc
