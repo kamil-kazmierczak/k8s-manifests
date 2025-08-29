@@ -30,6 +30,12 @@ spec:
 
         env:
           HOMEPAGE_ALLOWED_HOSTS: "homepage.homelab.lan"
+
+        persistence:
+          config:
+            enabled: true
+            type: configMap
+            name: homepage-config
   destination:
     server: https://kubernetes.default.svc
     namespace: gethomepage

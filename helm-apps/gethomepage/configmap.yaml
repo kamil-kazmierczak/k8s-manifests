@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-config
+  namespace: gethomepage
+data:
+  services.yaml: |
+    - Grafana:
+        icon: si:grafana
+        href: http://grafana.homelab.lan
+        description: Monitoring dashboards
+
+    - PgAdmin:
+        icon: si:postgresql
+        href: http://pgadmin.homelab.lan
+        description: Database management
