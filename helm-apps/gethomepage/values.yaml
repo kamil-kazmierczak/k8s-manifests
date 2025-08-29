@@ -10,7 +10,7 @@ ingress:
   enabled: true
   className: traefik
   hosts:
-    - host: home.homelab.local   # <— podmień
+    - host: homepage.homelab.lan   # <— podmień
       paths:
         - path: /
           pathType: Prefix
