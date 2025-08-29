@@ -5,18 +5,24 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  sources:
-    - repoURL: https://github.com/kamil-kazmierczak/k8s-manifests
-      targetRevision: develop
-      path: helm-apps/gethomepage    # tu leży Twój values.yaml + configmap.yaml
-      ref: values                    # <<< NAZWA referencji
-
-    - repoURL: https://jameswynn.github.io/helm-charts
-      chart: homepage
-      targetRevision: 2.1.0
-      helm:
-        valueFiles:
-          - $values/values.yaml      # <<< UŻYJ ref: $values
+  source:
+    repoURL: https://jameswynn.github.io/helm-charts
+    chart: homepage
+    targetRevision: 2.1.0
+    helm:
+      values: |
+        service:
+          type: ClusterIP
+          port: 3000
+        ingress:
+          enabled: true
+          className: traefik
+          hosts:
+            - host: homepage.homelab.lan
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls: []
   destination:
     server: https://kubernetes.default.svc
     namespace: gethomepage
