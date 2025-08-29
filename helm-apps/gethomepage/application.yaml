@@ -55,7 +55,7 @@ spec:
                     href: https://192.168.88.20:9443
                     description: Docker management
                 - Argo CD:
-                    icon: argocd.png
+                    icon: argo-cd.png
                     href: https://192.168.88.21:30081
                     description: GitOps cluster management
 
