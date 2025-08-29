@@ -49,6 +49,7 @@ spec:
         - name: traefik
           image: traefik:v2.11
           args:
+            - --providers.kubernetesIngress.ingressClass=traefik-custom
             - --configFile=/etc/traefik/traefik.yml
           ports:
             - name: web
