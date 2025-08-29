@@ -1,0 +1,13 @@
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: true
+  className: traefik
+  hosts:
+    - host: homepage.homelab.lan
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []

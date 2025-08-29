@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gethomepage
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    # 1) Twoje repo z manifestami (values.yaml, configmap.yaml)
+    - repoURL: https://github.com/kamil-kazmierczak/k8s-manifests
+      targetRevision: develop
+      path: helm-apps/gethomepage
+      ref: repo
+
+    # 2) Helm chart zewnętrzny
+    - repoURL: https://jameswynn.github.io/helm-charts
+      chart: homepage
+      targetRevision: 2.1.0
+      helm:
+        valueFiles:
+          - $repo/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gethomepage
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
