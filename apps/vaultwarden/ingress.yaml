@@ -3,8 +3,14 @@ kind: Ingress
 metadata:
   name: vaultwarden
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    cert-manager.io/cluster-issuer: letsencrypt-http
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
+  tls:
+    - hosts:
+        - vaultwarden.homelab.lan
+      secretName: vaultwarden-tls
   rules:
     - host: vaultwarden.homelab.lan
       http:
