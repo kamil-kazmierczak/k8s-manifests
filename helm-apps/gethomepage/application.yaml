@@ -34,6 +34,10 @@ spec:
         config:
           services:
             - Apps:
+                - Vaultwarden:
+                    icon: vaultwarden-light.png
+                    href: https://vaultwarden.homelab.lan
+                    description: Password manager
                 - Mikrotik:
                     icon: mikrotik-light.png
                     href: http://mikrotik.homelab.lan
