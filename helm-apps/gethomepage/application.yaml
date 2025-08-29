@@ -6,26 +6,21 @@ metadata:
 spec:
   project: default
   sources:
-    # 1) Twoje repo z manifestami (values.yaml, configmap.yaml)
     - repoURL: https://github.com/kamil-kazmierczak/k8s-manifests
       targetRevision: develop
-      path: helm-apps/gethomepage
-      ref: repo
+      path: helm-apps/gethomepage    # tu leży Twój values.yaml + configmap.yaml
+      ref: values                    # <<< NAZWA referencji
 
-    # 2) Helm chart zewnętrzny
     - repoURL: https://jameswynn.github.io/helm-charts
       chart: homepage
       targetRevision: 2.1.0
       helm:
         valueFiles:
-          - $repo/values.yaml
+          - $values/values.yaml      # <<< UŻYJ ref: $values
   destination:
     server: https://kubernetes.default.svc
     namespace: gethomepage
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+    automated: { prune: true, selfHeal: true }
+    syncOptions: [ "CreateNamespace=true" ]
 
