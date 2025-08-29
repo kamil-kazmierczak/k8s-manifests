@@ -16,6 +16,7 @@ spec:
             ports:
               http:
                 port: 3000
+
         ingress:
           main:
             enabled: true
@@ -25,18 +26,17 @@ spec:
                 paths:
                   - path: /
                     pathType: Prefix
-            tls: []
-        controllers:
-          main:
-            containers:
-              main:
-                env:
-                  - name: HOMEPAGE_ALLOWED_HOSTS
-                    value: "homepage.homelab.lan"
+            tls: []  # zostaw puste, jeśli bez HTTPS
+
+        env:
+          HOMEPAGE_ALLOWED_HOSTS: "homepage.homelab.lan"
   destination:
     server: https://kubernetes.default.svc
     namespace: gethomepage
   syncPolicy:
-    automated: { prune: true, selfHeal: true }
-    syncOptions: [ "CreateNamespace=true" ]
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
 
