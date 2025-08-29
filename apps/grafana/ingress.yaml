@@ -8,6 +8,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/redirect-entry-point: websecure
 spec:
+  ingressClassName: traefik
   tls:
     - hosts:
         - grafana.homelab.lan
