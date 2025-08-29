@@ -4,11 +4,10 @@ metadata:
   name: pgadmin4
   namespace: db-tools
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: pgadmin4
   ports:
     - name: http
       port: 80
       targetPort: 80
-      nodePort: 30432
