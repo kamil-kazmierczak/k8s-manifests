@@ -35,13 +35,29 @@ spec:
           services:
             - Apps:
                 - Grafana:
-                    icon: si:grafana
+                    icon: grafana.png
                     href: http://grafana.homelab.lan
                     description: Monitoring dashboards
                 - pgAdmin:
-                    icon: si:postgresql
+                    icon: pgadmin.png
                     href: http://pgadmin.homelab.lan
                     description: Database management
+                - Docmost:
+                    icon: docmost.png
+                    href: http://192.168.88.20:3001
+                    description: Documentation
+                - Proxmox VE:
+                    icon: proxmox.png
+                    href: https://192.168.88.10:8006
+                    description: Virtualization and LXC
+                - Portainer:
+                    icon: portainer.png
+                    href: https://192.168.88.20:9443
+                    description: Docker management
+                - Argo CD:
+                    icon: argocd.png
+                    href: https://192.168.88.21:30081
+                    description: GitOps cluster management
 
   destination:
     server: https://kubernetes.default.svc
