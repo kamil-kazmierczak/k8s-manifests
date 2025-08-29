@@ -34,6 +34,10 @@ spec:
         config:
           services:
             - Apps:
+                - Mikrotik:
+                    icon: mikrotik-light.png
+                    href: http://mikrotik.homelab.lan
+                    description: RouterOS 7 by Mikrotik
                 - Grafana:
                     icon: grafana.png
                     href: http://grafana.homelab.lan
