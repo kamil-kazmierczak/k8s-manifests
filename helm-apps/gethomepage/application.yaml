@@ -26,6 +26,13 @@ spec:
                   - path: /
                     pathType: Prefix
             tls: []
+        controllers:
+          main:
+            containers:
+              main:
+                env:
+                  - name: HOMEPAGE_ALLOWED_HOSTS
+                    value: "homepage.homelab.lan"
   destination:
     server: https://kubernetes.default.svc
     namespace: gethomepage
