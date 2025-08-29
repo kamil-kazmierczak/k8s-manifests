@@ -31,11 +31,17 @@ spec:
         env:
           HOMEPAGE_ALLOWED_HOSTS: "homepage.homelab.lan"
 
-        persistence:
-          config:
-            enabled: true
-            type: configMap
-            name: homepage-config
+        config:
+          services:
+            - Grafana:
+              icon: si:grafana
+              href: http://grafana.homelab.lan
+              description: Monitoring dashboards
+            - pgAdmin:
+              icon: si:postgresql
+              href: http://pgadmin.homelab.lan
+              description: Database management
+
   destination:
     server: https://kubernetes.default.svc
     namespace: gethomepage
