@@ -1,0 +1,35 @@
+# apps/grafana/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Lista wszystkich manifestów które mają być wdrożone
+resources:
+  - manifests/namespace.yaml
+  - manifests/deployment.yaml
+  - manifests/service.yaml
+  - manifests/pvc.yaml
+  - manifests/ingress.yaml  # Poprawka: było "mainfests"
+  - manifests/configmap-provisioning-dashboards.yaml
+
+# Automatyczne generowanie ConfigMap z plików
+configMapGenerator:
+  - name: grafana-dashboards
+    # Namespace nie jest potrzebny tutaj - będzie wzięty z globalnego namespace
+    files:
+      # Kustomize automatycznie wczyta pliki z folderu dashboards/
+      - dashboards/training-stats.json
+      - dashboards/body-measurements.json
+    options:
+      # Wyłącz dodawanie hash do nazwy ConfigMap - WAŻNE dla ArgoCD!
+      disableNameSuffixHash: true
+      labels:
+        app: grafana
+        component: dashboards
+
+# Globalny namespace dla wszystkich zasobów
+namespace: monitoring
+
+# Wspólne labele (opcjonalne)
+commonLabels:
+  app: grafana
+  managed-by: argocd
