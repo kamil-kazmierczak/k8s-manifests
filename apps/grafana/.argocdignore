@@ -1,0 +1,6 @@
+# Ignoruj pliki dashboardów - nie są to manifesty K8s
+dashboards/*.json
+
+# Inne pliki do ignorowania
+README.md
+*.md
